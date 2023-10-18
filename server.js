@@ -11,7 +11,13 @@ const app = express();
 const PORT = 3001;
 
 // Middleware
-app.use(cors());
+//app.use(cors());
+
+app.use(cors({
+    origin: 'http://localhost:3000', // frontend's origin
+    credentials: true
+}));
+
 app.use(express.json());
 
 app.use(session({
@@ -208,6 +214,75 @@ app.get('/user/:username/journal', async (req, res) => {
         res.json(user.journalEntries);
     } catch (error) {
         res.status(500).send({ message: 'Error fetching journal entries', error: error.message });
+    }
+});
+
+
+app.post('/user/:username/garden', async (req, res) => {
+    try {
+        const { username } = req.params;
+        const { plantName, plantType } = req.body;
+
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        // Check if the plant already exists or create a new one
+        let plant = await Plant.findOne({ name: plantName, type: plantType });
+        if (!plant) {
+            plant = new Plant({ name: plantName, type: plantType });
+            await plant.save();
+        }
+
+        // Push the plant's ObjectId to the user's garden
+        if (!user.garden.includes(plant._id)) {
+            user.garden.push(plant._id);
+            await user.save();
+        }
+
+        res.status(201).send({ message: 'Plant added to garden' });
+    } catch (error) {
+        res.status(500).send({ message: 'Error adding plant to garden', error: error.message });
+    }
+});
+
+app.get('/user/:username/garden', async (req, res) => {
+    try {
+        const { username } = req.params;
+
+        const user = await User.findOne({ username }).populate('garden');
+        if (!user) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        res.json(user.garden);
+    } catch (error) {
+        res.status(500).send({ message: 'Error fetching plants from garden', error: error.message });
+    }
+});
+
+
+// Route to remove a specific plant from the user's garden
+app.delete('/user/:username/garden/:plantId', async (req, res) => {
+    try {
+        const { username, plantId } = req.params;
+
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const plantIndex = user.garden.indexOf(plantId);
+        if (plantIndex !== -1) {
+            user.garden.splice(plantIndex, 1);
+            await user.save();
+            res.status(200).send({ message: 'Plant removed from garden successfully' });
+        } else {
+            res.status(404).send({ message: 'Plant not found in the user garden' });
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error removing plant from garden', error: error.message });
     }
 });
 

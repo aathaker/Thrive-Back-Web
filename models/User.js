@@ -27,6 +27,10 @@ const UserSchema = new mongoose.Schema({
           type: Date,
           default: Date.now
       }
+  }],
+  garden: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Plant'
   }]
 });
 
