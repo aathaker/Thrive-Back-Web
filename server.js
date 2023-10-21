@@ -7,7 +7,7 @@ const User = require('./models/User');
 const Plant = require('./models/Plant');
 
 const authRoutes = require('./routes/auth-routes');
-const plantRoutes = require('./routes/plant-routes');
+const plantRoutes = require('./routes/plant-garden-routes');
 const userRoutes = require('./routes/user-routes');
 
 const app = express();

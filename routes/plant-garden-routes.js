@@ -13,6 +13,6 @@ router.get('/user/:username/garden', plantController.getplant);
 router.delete('/user/:username/garden/:plantId', plantController.deleteplant);
 
 //filter plant
-app.get('/api/plants', plantController.filterplant);
+router.get('/api/plants', plantController.filterplant);
 
 module.exports = router;

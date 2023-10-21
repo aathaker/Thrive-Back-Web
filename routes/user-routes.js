@@ -3,6 +3,9 @@ const router = express.Router();
 const UsersController = require("../controllers/user-controller")
 
 
-app.post('/user/:username/journal', UsersController.addjournal);
+router.post('/user/:username/journal', UsersController.addjournal);
 
-app.get('/user/:username/journal', UsersController.getjournal);
+router.get('/user/:username/journal', UsersController.getjournal);
+
+
+module.exports = router;
