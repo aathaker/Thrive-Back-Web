@@ -33,32 +33,7 @@ app.use('/', authRoutes);
 app.use('/', plantRoutes);
 app.use('/', userRoutes);
 
-
-// Fetching plants with or without a search term
-/* app.get('/api/plants', async (req, res) => {
-    const searchTerm = req.query.search;
-    let query = {};
-
-    if (searchTerm) {
-        query = {
-            $or: [
-                { name: new RegExp(searchTerm, 'i') },
-                { scientificName: new RegExp(searchTerm, 'i') }
-            ]
-        };
-    }
-
-    try {
-        const plants = await Plant.find(query);
-        res.json(plants);
-    } catch (err) {
-        res.status(500).json({ message: 'Server error' });
-        console.error(err);
-    }
-});
-*/
-
-// Connect to MongoDB using Mongoose
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

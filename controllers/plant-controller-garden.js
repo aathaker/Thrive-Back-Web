@@ -75,6 +75,8 @@ const deleteplant = async (res,req,next) => {
 
 const filterplant = async (req, res, next) => {
     const { search, difficulty, type, sunlight } = req.query;
+    console.log(req.query)
+    console.log("Reached here")
     
     let query = {};
     

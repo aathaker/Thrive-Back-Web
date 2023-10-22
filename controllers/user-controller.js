@@ -32,7 +32,7 @@ const signup = async (req, res, next) => {
 }
 
 const login = async (req, res, next) => {try {
-
+ 
     const { username, password } = req.body;
 
     console.log('Login attempt:', { username, password });
