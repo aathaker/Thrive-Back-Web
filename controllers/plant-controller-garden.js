@@ -36,7 +36,7 @@ const addplant = async (req, res, next) => {
     }
 }
 
-const getplant = async (res, req, next) => {
+const getplant = async (req, res, next) => {
     try {
         const { username } = req.params;
 
@@ -51,7 +51,7 @@ const getplant = async (res, req, next) => {
     }
 }
 
-const deleteplant = async (res,req,next) => {
+const deleteplant = async (req, res, next) => {
     try {
         const { username, plantId } = req.params;
 
@@ -75,8 +75,6 @@ const deleteplant = async (res,req,next) => {
 
 const filterplant = async (req, res, next) => {
     const { search, difficulty, type, sunlight } = req.query;
-    console.log(req.query)
-    console.log("Reached here")
     
     let query = {};
     

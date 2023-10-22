@@ -97,15 +97,19 @@ const isloggedin = async(req, res, next) => {
 const addjournal = async (req, res, next) => {
     try {
         const { username } = req.params;
+        const { title, content } = req.body;
 
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(404).send({ message: 'User not found' });
         }
 
-        res.json(user.journalEntries);
+        user.journalEntries.push({ title, content });
+        await user.save();
+
+        res.status(201).send({ message: 'Journal entry added' });
     } catch (error) {
-        res.status(500).send({ message: 'Error fetching journal entries', error: error.message });
+        res.status(500).send({ message: 'Error adding journal entry', error: error.message });
     }
 }
 
