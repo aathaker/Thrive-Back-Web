@@ -128,6 +128,30 @@ const getjournal = async (req, res, next) => {
     }
 }
 
+const deleteJournalEntry = async (req, res, next) => {
+  try {
+      const { username, entryId } = req.params;
+
+      const user = await User.findOne({ username });
+      if (!user) {
+          return res.status(404).send({ message: 'User not found' });
+      }
+
+      const journalIndex = user.journalEntries.findIndex(entry => entry._id.toString() === entryId);
+
+      if (journalIndex !== -1) {
+          user.journalEntries.splice(journalIndex, 1);
+          await user.save();
+          res.status(200).send({ message: 'Journal entry removed successfully' });
+      } else {
+          res.status(404).send({ message: 'Journal entry not found' });
+      }
+  } catch (error) {
+      console.error('Error removing journal entry:', error);
+      res.status(500).send({ message: 'Error removing journal entry', error: error.message });
+  }
+};
+
 
 exports.signup = signup;
 exports.login = login;
@@ -135,3 +159,4 @@ exports.logout = logout;
 exports.isloggedin = isloggedin;
 exports.addjournal = addjournal;
 exports.getjournal = getjournal;
+exports.deleteJournalEntry = deleteJournalEntry;

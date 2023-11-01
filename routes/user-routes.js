@@ -7,5 +7,6 @@ router.post('/user/:username/journal', UsersController.addjournal);
 
 router.get('/user/:username/journal', UsersController.getjournal);
 
+router.delete('/user/:username/journal/:entryId', UsersController.deleteJournalEntry);
 
 module.exports = router;
