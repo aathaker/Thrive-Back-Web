@@ -5,10 +5,12 @@ const cors = require('cors');
 const session = require('express-session');
 const User = require('./models/User');
 const Plant = require('./models/Plant');
+const Marketplace = require('./models/Marketplace');
 
 const authRoutes = require('./routes/auth-routes');
 const plantRoutes = require('./routes/plant-garden-routes');
 const userRoutes = require('./routes/user-routes');
+const marketRoutes = require('./routes/market-routes');
 
 const app = express();
 const PORT = 3001;
@@ -32,6 +34,7 @@ app.use(session({
 app.use('/', authRoutes);
 app.use('/', plantRoutes);
 app.use('/', userRoutes);
+app.use('/', marketRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {

@@ -2,15 +2,13 @@
 const mongoose = require('mongoose');
 
 const marketplaceSchema = new mongoose.Schema({
-    plant: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Plant'
-    }],
-    user: [{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }],
-
+    },
+    itemName: String,
+    price: Number,
+    category: String
 });
 
 const Marketplace = mongoose.model('Marketplace', marketplaceSchema);
