@@ -6,9 +6,9 @@ const marketplaceSchema = new mongoose.Schema({
     itemName: String,
     price: Number,
     category: String
-});
+}, { collection: 'Marketplaces' });
 
-const Marketplace = mongoose.model('Marketplace', marketplaceSchema);
+const Marketplace = mongoose.model('Marketplace', marketplaceSchema, 'Marketplaces');
 
 module.exports = Marketplace;
 

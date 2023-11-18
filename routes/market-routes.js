@@ -5,4 +5,8 @@ const marketController = require("../controllers/market-controller")
 
 router.post('/market/item', marketController.addItem);
 
+router.get('/market/item', marketController.getItems);
+
+
+
 module.exports = router
