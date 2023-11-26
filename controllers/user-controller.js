@@ -153,6 +153,55 @@ const deleteJournalEntry = async (req, res, next) => {
 };
 
 
+const updateAbout = async (req, res, next) => {
+    try {
+        const { username } = req.params;
+        const { title, journey, whatIDo, contactInfo } = req.body;
+
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        user.aboutTitle = title || user.aboutTitle;
+        user.aboutJourney = journey || user.aboutJourney;
+        user.aboutWhatIDo = whatIDo || user.aboutWhatIDo;
+        user.aboutContactInfo = contactInfo || user.aboutContactInfo;
+
+        await user.save();
+        res.status(200).json({ message: 'About information updated successfully' });
+
+    } catch (error) {
+        console.error('Error updating about information:', error);
+        res.status(500).json({ message: 'Error updating about information', error: error.message });
+    }
+};
+
+
+const getAbout = async (req, res, next) => {
+    try {
+        const { username } = req.params;
+        const user = await User.findOne({ username }, 'aboutTitle aboutJourney aboutWhatIDo aboutContactInfo');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const aboutData = {
+            title: user.aboutTitle,
+            journey: user.aboutJourney,
+            whatIDo: user.aboutWhatIDo,
+            contactInfo: user.aboutContactInfo,
+        };
+
+        res.json(aboutData);
+    } catch (error) {
+        console.error('Error fetching about information:', error);
+        res.status(500).json({ message: 'Error fetching about information', error: error.message });
+    }
+};
+
+
+
 exports.signup = signup;
 exports.login = login;
 exports.logout = logout;
@@ -160,3 +209,5 @@ exports.isloggedin = isloggedin;
 exports.addjournal = addjournal;
 exports.getjournal = getjournal;
 exports.deleteJournalEntry = deleteJournalEntry;
+exports.updateAbout = updateAbout;
+exports.getAbout = getAbout;
