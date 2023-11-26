@@ -32,7 +32,12 @@ const UserSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Plant'
   }],
+  purchases: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Marketplace'
+  }],
 
+  
   aboutTitle: { type: String, default: 'My name...' },
   aboutJourney: { type: String, default: 'Welcome to my garden journey! I am passionate about...'},
   aboutWhatIDo: { type: String, default: 'Beyond my personal garden, I offer...'},
