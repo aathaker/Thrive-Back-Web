@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema({
   garden: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Plant'
+  }],
+  purchases: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Marketplace'
   }]
 });
 
