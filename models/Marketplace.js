@@ -5,7 +5,8 @@ const marketplaceSchema = new mongoose.Schema({
     userName: String,
     itemName: String,
     price: Number,
-    category: String
+    category: String,
+    status: String
 }, { collection: 'Marketplaces' });
 
 const Marketplace = mongoose.model('Marketplace', marketplaceSchema, 'Marketplaces');
