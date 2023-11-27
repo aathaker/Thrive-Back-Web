@@ -2,9 +2,10 @@
 const { validationResult } = require("express-validator");
 const Plant = require("../models/Plant");
 const User = require("../models/User");
+const PlantImages = require('../models/PlantImages');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const { Binary } = require('mongodb');
 
 
 const addplant = async (req, res, next) => {
@@ -41,6 +42,7 @@ const getplant = async (req, res, next) => {
         const { username } = req.params;
 
         const user = await User.findOne({ username }).populate('garden');
+
         if (!user) {
             return res.status(404).send({ message: 'User not found' });
         }
