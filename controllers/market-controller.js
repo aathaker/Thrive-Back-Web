@@ -10,12 +10,13 @@ const addItem = async (req, res, next) => {
         let currentItem = req.body.itemname;
         let currentPrice = Number(req.body.price);
         let currentCategory = req.body.category;
+        let currentContact = req.body.contact;
         let cuurentStatus = req.body.status;
 
         let itemPresent = await Marketplace.findOne({userName: currentUser, itemName: currentItem});
         if(!itemPresent){
             let theItem = new Marketplace({userName: currentUser, itemName: currentItem, price: currentPrice, category: currentCategory,
-            status: cuurentStatus});
+            contact: currentContact, status: cuurentStatus});
             await theItem.save();
         }
         

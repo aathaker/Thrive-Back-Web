@@ -6,6 +6,7 @@ const marketplaceSchema = new mongoose.Schema({
     itemName: String,
     price: Number,
     category: String,
+    contact: String,
     status: String
 }, { collection: 'Marketplaces' });
 
