@@ -14,13 +14,11 @@ const reminderRoutes = require('./routes/plant-reminder-routes');
 const app = express();
 const PORT = 3001;
 
-// Middleware
-//app.use(cors());
-
 app.use(cors({
-    origin: 'http://localhost:3000', // frontend's origin
-    credentials: true
+   origin: 'http://localhost:3000', // frontend's origin
+   credentials: true
 }));
+
 
 app.use(express.json());
 
