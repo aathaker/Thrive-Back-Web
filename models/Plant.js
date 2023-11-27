@@ -9,7 +9,16 @@ const plantSchema = new mongoose.Schema({
   difficulty: String,
   sunlight: String,
   type: String,
-  about: String
+  about: String,
+  images: [
+    {
+      filename: String,
+      originalname: String,
+      metadata: {
+        plantName: String,
+      },
+    },
+  ],
 }, { collection: 'Plants' });
 
 const Plant = mongoose.model('Plant', plantSchema, 'Plants');
