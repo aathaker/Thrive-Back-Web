@@ -28,6 +28,24 @@ const UserSchema = new mongoose.Schema({
           default: Date.now
       }
   }],
+  reminderEntries: [{
+        plant: {
+            type: String,
+            required: true
+        },
+        content: {
+            type: String,
+            required: true
+        },
+        date: {
+            type: Date,
+            required: true
+        },
+        interval: {
+            type: Number,
+            required: true
+        }
+    }],
   garden: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Plant'

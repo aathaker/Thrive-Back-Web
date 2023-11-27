@@ -9,6 +9,7 @@ const Plant = require('./models/Plant');
 const authRoutes = require('./routes/auth-routes');
 const plantRoutes = require('./routes/plant-garden-routes');
 const userRoutes = require('./routes/user-routes');
+const reminderRoutes = require('./routes/plant-reminder-routes');
 
 const app = express();
 const PORT = 3001;
@@ -32,6 +33,7 @@ app.use(session({
 app.use('/', authRoutes);
 app.use('/', plantRoutes);
 app.use('/', userRoutes);
+app.use('/', reminderRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
